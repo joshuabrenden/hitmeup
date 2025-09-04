@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Neobrutalist Global Styles */
+@layer base {
+  html {
+    font-family: 'Courier New', monospace;
+  }
+  
+  body {
+    @apply bg-brutal-white text-brutal-black;
+  }
+}
+
+@layer components {
+  .brutal-border {
+    @apply border-4 border-brutal-black;
+  }
+  
+  .brutal-shadow {
+    @apply shadow-brutal;
+  }
+  
+  .brutal-button {
+    @apply brutal-border brutal-shadow bg-brutal-yellow px-6 py-3 font-bold uppercase tracking-wide transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-none;
+  }
+  
+  .brutal-card {
+    @apply brutal-border brutal-shadow bg-brutal-white p-6;
+  }
+  
+  .brutal-input {
+    @apply brutal-border bg-brutal-white px-4 py-3 font-mono focus:outline-none focus:ring-4 focus:ring-brutal-cyan;
+  }
+}
