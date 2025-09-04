@@ -1,114 +1,54 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Card, CardContent } from '@/components/ui/Card';
 
-// Direct login mapping for invite codes
-const DIRECT_LOGIN_MAP = {
-  'jj-direct': {
-    email: 'joshuabrenden@gmail.com',
-    password: 'jj123!',
-    name: 'JJ'
-  },
-  'cc-direct': {
-    email: 'christym90@gmail.com', 
-    password: 'cc123!',
-    name: 'CC'
-  }
-} as const;
-
-export default function DirectInvitePage() {
+export default function SimpleDirectAccess() {
   const params = useParams();
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const supabase = createClient();
-
   const inviteCode = params.code as string;
 
   useEffect(() => {
-    async function handleDirectLogin() {
-      if (!inviteCode) {
-        setError('Invalid invite code');
-        setLoading(false);
-        return;
-      }
-
-      const loginInfo = DIRECT_LOGIN_MAP[inviteCode as keyof typeof DIRECT_LOGIN_MAP];
-      if (!loginInfo) {
-        setError('Invalid or expired invite code');
-        setLoading(false);
-        return;
-      }
-
-      try {
-        // Sign in the user directly
-        const { data, error: authError } = await supabase.auth.signInWithPassword({
-          email: loginInfo.email,
-          password: loginInfo.password,
-        });
-
-        if (authError || !data.user) {
-          throw new Error(authError?.message || 'Login failed');
-        }
-
-        // Redirect to the main conversation
+    // Just redirect to the chat room immediately
+    // Skip all auth - both users are pre-created and pre-added
+    if (inviteCode === 'jj-direct' || inviteCode === 'cc-direct') {
+      // Give a brief moment for the page to render, then redirect
+      const timer = setTimeout(() => {
         router.push('/chat/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee');
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to access chat');
-        console.error('Direct login error:', err);
-      } finally {
-        setLoading(false);
-      }
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    } else {
+      // Invalid code - show error after a moment
+      const timer = setTimeout(() => {
+        router.push('/');
+      }, 2000);
+      
+      return () => clearTimeout(timer);
     }
+  }, [inviteCode, router]);
 
-    handleDirectLogin();
-  }, [inviteCode, supabase, router]);
-
-  if (loading) {
+  if (inviteCode === 'jj-direct') {
     return (
       <div className="min-h-screen bg-brutal-white p-8 flex items-center justify-center">
         <Card>
           <CardContent className="p-8 text-center">
-            <div className="text-2xl font-bold uppercase">LOGGING YOU IN...</div>
-            <p className="mt-4">Setting up your chat access...</p>
+            <div className="text-2xl font-bold uppercase mb-4">WELCOME JJ! 👋</div>
+            <p>Redirecting to your chat room...</p>
           </CardContent>
         </Card>
       </div>
     );
   }
 
-  if (error) {
-    const loginInfo = DIRECT_LOGIN_MAP[inviteCode as keyof typeof DIRECT_LOGIN_MAP];
-    
+  if (inviteCode === 'cc-direct') {
     return (
       <div className="min-h-screen bg-brutal-white p-8 flex items-center justify-center">
         <Card>
           <CardContent className="p-8 text-center">
-            <div className="text-2xl font-bold uppercase text-brutal-red mb-4">
-              ACCESS ERROR
-            </div>
-            <p className="mb-4">{error}</p>
-            
-            {loginInfo && (
-              <div className="mt-4 p-4 bg-gray-100 border-2 border-brutal-black text-left">
-                <p className="font-bold">Manual Login Info:</p>
-                <p>Email: {loginInfo.email}</p>
-                <p>Password: {loginInfo.password}</p>
-              </div>
-            )}
-            
-            <div className="mt-4 space-y-2">
-              <Button onClick={() => window.location.reload()}>
-                TRY AGAIN
-              </Button>
-              <Button variant="outline" onClick={() => router.push('/')}>
-                BACK TO HOME
-              </Button>
-            </div>
+            <div className="text-2xl font-bold uppercase mb-4">WELCOME CC! 👋</div>
+            <p>Redirecting to your chat room...</p>
           </CardContent>
         </Card>
       </div>
@@ -119,7 +59,10 @@ export default function DirectInvitePage() {
     <div className="min-h-screen bg-brutal-white p-8 flex items-center justify-center">
       <Card>
         <CardContent className="p-8 text-center">
-          <div className="text-2xl font-bold uppercase">REDIRECTING...</div>
+          <div className="text-2xl font-bold uppercase text-brutal-red mb-4">
+            INVALID CODE
+          </div>
+          <p>Redirecting home...</p>
         </CardContent>
       </Card>
     </div>
