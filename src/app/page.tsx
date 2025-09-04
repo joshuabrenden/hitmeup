@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -57,9 +58,11 @@ export default function HomePage() {
                 <Button className="w-full" disabled>
                   WAITING FOR INVITE
                 </Button>
-                <Button variant="outline" className="w-full" disabled>
-                  ADMIN LOGIN
-                </Button>
+                <Link href="/login">
+                  <Button variant="outline" className="w-full">
+                    ADMIN LOGIN
+                  </Button>
+                </Link>
               </div>
             </CardContent>
           </Card>
