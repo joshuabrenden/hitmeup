@@ -15,7 +15,7 @@ export default function SimpleDirectAccess() {
     if (inviteCode === 'jj-direct' || inviteCode === 'cc-direct') {
       // Give a brief moment for the page to render, then redirect
       const timer = setTimeout(() => {
-        router.push('/chat/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee');
+        router.push('/test-chat');
       }, 1000);
       
       return () => clearTimeout(timer);
