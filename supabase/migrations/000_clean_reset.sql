@@ -27,14 +27,17 @@ ALTER TABLE public.invitations DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.ai_usage_logs DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.app_metrics DISABLE ROW LEVEL SECURITY;
 
--- Step 3: Clean up any existing data (optional - comment out if you want to keep data)
--- TRUNCATE public.messages CASCADE;
--- TRUNCATE public.conversation_participants CASCADE;  
--- TRUNCATE public.invitations CASCADE;
--- TRUNCATE public.conversations CASCADE;
--- TRUNCATE public.users CASCADE;
--- TRUNCATE public.ai_usage_logs CASCADE;
--- TRUNCATE public.app_metrics CASCADE;
+-- Step 3: Clean up ALL existing data (required for fresh start)
+TRUNCATE public.messages CASCADE;
+TRUNCATE public.conversation_participants CASCADE;  
+TRUNCATE public.invitations CASCADE;
+TRUNCATE public.conversations CASCADE;
+TRUNCATE public.users CASCADE;
+TRUNCATE public.ai_usage_logs CASCADE;
+TRUNCATE public.app_metrics CASCADE;
+
+-- Clean auth users too
+DELETE FROM auth.users;
 
 -- Step 4: Drop any functions that might cause issues
 DROP FUNCTION IF EXISTS public.user_is_conversation_participant(UUID, UUID);
