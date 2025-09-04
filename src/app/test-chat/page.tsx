@@ -39,7 +39,7 @@ export default function TestChatPage() {
 
       try {
         // Call the AI endpoint
-        const response = await fetch('/api/ai/jimmy', {
+        const response = await fetch('/api/ai/test-jimmy', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
