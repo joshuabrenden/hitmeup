@@ -1,5 +1,5 @@
 -- BOOTSTRAP: Create Admin User and Initial Data (with RLS disabled)
--- Run this AFTER 000_clean_reset.sql
+-- Run this AFTER 000_clean_reset.sql and 001_create_schema.sql
 -- This works because RLS is disabled, avoiding all recursion issues
 
 -- Step 1: Create admin user in auth.users
