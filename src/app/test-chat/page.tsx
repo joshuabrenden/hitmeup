@@ -12,7 +12,7 @@ export default function TestChatPage() {
   const [newMessage, setNewMessage] = useState('');
   const [currentUser, setCurrentUser] = useState('JJ'); // Default to JJ, can be switched
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
     
     const message = {
@@ -23,7 +23,62 @@ export default function TestChatPage() {
     };
     
     setMessages(prev => [...prev, message]);
+    const messageContent = newMessage.trim();
     setNewMessage('');
+
+    // Check if message mentions @jimmy
+    if (messageContent.toLowerCase().includes('@jimmy')) {
+      // Add typing indicator
+      const typingMessage = {
+        id: Date.now() + 1,
+        user: 'Jimmy (AI)',
+        content: 'Jimmy is typing...',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, typingMessage]);
+
+      try {
+        // Call the AI endpoint
+        const response = await fetch('/api/ai/jimmy', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: messageContent,
+            conversationId: 'test-chat',
+            userId: currentUser === 'JJ' ? 'jj-test' : 'cc-test'
+          }),
+        });
+
+        const data = await response.json();
+        
+        // Replace typing message with AI response
+        const aiMessage = {
+          id: Date.now() + 2,
+          user: 'Jimmy (AI)',
+          content: data.response || 'Sorry, I had trouble responding to that.',
+          timestamp: new Date()
+        };
+        
+        setMessages(prev => prev.map(msg => 
+          msg.content === 'Jimmy is typing...' ? aiMessage : msg
+        ));
+      } catch (error) {
+        console.error('AI response error:', error);
+        // Replace typing message with error
+        const errorMessage = {
+          id: Date.now() + 2,
+          user: 'Jimmy (AI)',
+          content: 'Sorry, I\'m having technical difficulties right now.',
+          timestamp: new Date()
+        };
+        
+        setMessages(prev => prev.map(msg => 
+          msg.content === 'Jimmy is typing...' ? errorMessage : msg
+        ));
+      }
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -79,9 +134,13 @@ export default function TestChatPage() {
               <CardContent>
                 <div className="space-y-4 max-h-96 overflow-y-auto mb-4">
                   {messages.map((message) => (
-                    <div key={message.id} className="border-2 border-brutal-black p-4">
+                    <div key={message.id} className={`border-2 border-brutal-black p-4 ${message.user.includes('Jimmy') ? 'bg-green-50' : ''}`}>
                       <div className="flex justify-between items-start mb-2">
-                        <strong className={message.user === 'JJ' ? 'text-brutal-blue' : 'text-brutal-pink'}>
+                        <strong className={
+                          message.user === 'JJ' ? 'text-brutal-blue' : 
+                          message.user === 'CC' ? 'text-brutal-pink' : 
+                          'text-green-600'
+                        }>
                           {message.user}
                         </strong>
                         <small className="text-gray-600">
@@ -98,7 +157,7 @@ export default function TestChatPage() {
                     Sending as: <span className={currentUser === 'JJ' ? 'text-brutal-blue' : 'text-brutal-pink'}>{currentUser}</span>
                   </div>
                   <Textarea
-                    placeholder="Type your message..."
+                    placeholder="Type your message... (mention @jimmy to chat with AI)"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     onKeyPress={handleKeyPress}
