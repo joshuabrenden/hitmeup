@@ -74,15 +74,13 @@ INSERT INTO public.invitations (
     conversation_id,
     invite_code,
     created_by,
-    expires_at,
-    created_at
+    expires_at
 ) VALUES (
     'bbbbbbbb-cccc-dddd-eeee-ffffffffffff',
     'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
     'startup2024',
     '12345678-1234-1234-1234-123456789012',
-    NOW() + INTERVAL '30 days',
-    NOW()
+    NOW() + INTERVAL '30 days'
 ) ON CONFLICT (invite_code) DO UPDATE SET
     expires_at = EXCLUDED.expires_at;
 
