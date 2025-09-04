@@ -27,6 +27,7 @@ export default function InvitePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState('');
   const [joiningLoading, setJoiningLoading] = useState(false);
   const supabase = createClient();
 
@@ -77,13 +78,13 @@ export default function InvitePage() {
   }, [inviteCode, supabase]);
 
   const handleJoinConversation = async () => {
-    if (!inviteData || !displayName.trim()) return;
+    if (!inviteData || !displayName.trim() || !email.trim()) return;
 
     setJoiningLoading(true);
     try {
-      // Create user account (anonymous-like but with display name)
+      // Create user account with real email
       const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: `${inviteCode}-${Date.now()}@invite.hitmeup.app`,
+        email: email.trim(),
         password: Math.random().toString(36).substring(2, 15),
         options: {
           data: {
@@ -190,6 +191,19 @@ export default function InvitePage() {
 
             <div className="space-y-2">
               <label className="font-bold text-sm uppercase">
+                Your Email Address
+              </label>
+              <Input
+                type="email"
+                placeholder="Enter your email..."
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={joiningLoading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="font-bold text-sm uppercase">
                 Your Display Name
               </label>
               <Input
@@ -205,7 +219,7 @@ export default function InvitePage() {
               <Button
                 className="w-full"
                 onClick={handleJoinConversation}
-                disabled={!displayName.trim() || joiningLoading}
+                disabled={!displayName.trim() || !email.trim() || joiningLoading}
               >
                 {joiningLoading ? 'JOINING...' : 'JOIN CONVERSATION'}
               </Button>

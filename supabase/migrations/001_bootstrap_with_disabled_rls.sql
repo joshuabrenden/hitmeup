@@ -20,7 +20,7 @@ INSERT INTO auth.users (
 ) VALUES (
     '12345678-1234-1234-1234-123456789012', -- Fixed admin UUID
     '00000000-0000-0000-0000-000000000000',
-    'admin@hitmeup.local', -- CHANGE THIS to your email
+    'joshuabrenden@gmail.com', -- Admin email
     crypt('admin123!', gen_salt('bf')), 
     NOW(),
     NOW(),
@@ -39,7 +39,7 @@ INSERT INTO auth.users (
 INSERT INTO public.users (id, email, display_name, is_admin, created_at)
 VALUES (
     '12345678-1234-1234-1234-123456789012',
-    'admin@hitmeup.local', -- CHANGE THIS to match above
+    'joshuabrenden@gmail.com', -- Admin email
     'Admin User',
     true,
     NOW()
