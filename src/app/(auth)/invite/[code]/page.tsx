@@ -181,7 +181,7 @@ export default function InvitePage() {
             <div className="space-y-2">
               <Badge variant="success">VALID INVITE</Badge>
               <p className="font-bold">
-                You've been invited to join: <br />
+                You&apos;ve been invited to join: <br />
                 <span className="text-brutal-pink">
                   {inviteData.conversation.name}
                 </span>

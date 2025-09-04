@@ -9,28 +9,30 @@
   }
   
   body {
-    @apply bg-brutal-white text-brutal-black;
+    @apply bg-white text-black;
+    background-color: #FFFFFF;
+    color: #000000;
   }
 }
 
 @layer components {
   .brutal-border {
-    @apply border-4 border-brutal-black;
+    @apply border-4 border-black;
   }
   
   .brutal-shadow {
-    @apply shadow-brutal;
+    box-shadow: 4px 4px 0px 0px #000000;
   }
   
   .brutal-button {
-    @apply brutal-border brutal-shadow bg-brutal-yellow px-6 py-3 font-bold uppercase tracking-wide transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-none;
+    @apply brutal-border brutal-shadow bg-yellow-400 px-6 py-3 font-bold uppercase tracking-wide transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-none;
   }
   
   .brutal-card {
-    @apply brutal-border brutal-shadow bg-brutal-white p-6;
+    @apply brutal-border brutal-shadow bg-white p-6;
   }
   
   .brutal-input {
-    @apply brutal-border bg-brutal-white px-4 py-3 font-mono focus:outline-none focus:ring-4 focus:ring-brutal-cyan;
+    @apply brutal-border bg-white px-4 py-3 font-mono focus:outline-none focus:ring-4 focus:ring-cyan-400;
   }
 }
