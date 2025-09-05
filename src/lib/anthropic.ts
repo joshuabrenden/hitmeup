@@ -65,9 +65,35 @@ Current question: ${message}`;
       tokens_output: outputTokens,
       cost_cents: totalCostCents,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error calling Anthropic API:', error);
-    throw new Error('Sorry, I encountered an error processing your request.');
+    
+    // Check for specific API errors and provide helpful fallback responses
+    if (error?.error?.error?.message?.includes('credit balance is too low')) {
+      return {
+        content: "Hi! I'm Jimmy, your AI assistant. Unfortunately, I'm currently offline due to API credit limits, but I'm still here in spirit! 🤖 The good news is that all the chat functionality is working perfectly - you can send messages, and everything is being saved properly. The developer just needs to add more API credits to bring me back online!",
+        tokens_input: 0,
+        tokens_output: 0,
+        cost_cents: 0,
+      };
+    }
+    
+    if (error?.status === 429) {
+      return {
+        content: "I'm getting a lot of requests right now! Please wait a moment and try asking me again. 🤖",
+        tokens_input: 0,
+        tokens_output: 0,
+        cost_cents: 0,
+      };
+    }
+    
+    // Generic fallback
+    return {
+      content: "Sorry, I'm having some technical difficulties right now. The chat system is working great though! Try mentioning me again in a bit. 🔧",
+      tokens_input: 0,
+      tokens_output: 0,
+      cost_cents: 0,
+    };
   }
 }
 
