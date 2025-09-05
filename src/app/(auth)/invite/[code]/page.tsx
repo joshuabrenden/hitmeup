@@ -10,12 +10,11 @@ export default function SimpleDirectAccess() {
   const inviteCode = params.code as string;
 
   useEffect(() => {
-    // Just redirect to the chat room immediately
-    // Skip all auth - both users are pre-created and pre-added
+    // Redirect to the main chat conversation
     if (inviteCode === 'jj-direct' || inviteCode === 'cc-direct') {
-      // Give a brief moment for the page to render, then redirect
+      // Give a brief moment for the page to render, then redirect to the main conversation
       const timer = setTimeout(() => {
-        router.push('/test-chat');
+        router.push('/chat/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee');
       }, 1000);
       
       return () => clearTimeout(timer);
