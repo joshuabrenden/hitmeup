@@ -358,7 +358,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
       if (content.toLowerCase().includes('@jimmy')) {
         console.log('🤖 @jimmy mentioned, triggering AI response')
         setTimeout(() => {
-          handleJimmyResponse(chatId)
+          handleJimmyResponse(chatId, content, user?.name || 'Anonymous')
         }, 1500)
       }
 
@@ -369,7 +369,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
     }
   }, [channel, supabase])
 
-  const handleJimmyResponse = useCallback(async (chatId: string) => {
+  const handleJimmyResponse = useCallback(async (chatId: string, userMessage: string, userName: string) => {
     if (!channel) return
 
     try {
@@ -393,28 +393,56 @@ export function ChatProvider({ children }: ChatProviderProps) {
         }
       })
       
-      // Simulate Jimmy thinking/typing for 2 seconds
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Get recent messages for context
+      const recentMessages = messages.slice(-10) // Last 10 messages for context
       
-      console.log('🤖 Sending Jimmy response...')
+      console.log('🤖 Calling Jimmy AI API...')
       
-      const aiContent = `Hi! I'm Jimmy, your AI assistant. I noticed you mentioned me! This is a demo response using the new broadcast architecture. Full AI integration comes in Stage 4!`
+      let aiData: any
       
-      const { data: aiData, error: aiError } = await supabase
-        .from('messages')
-        .insert({
-          chat_id: chatId,
-          user_id: null,
-          content: aiContent,
-          message_type: 'ai',
-          is_ai: true
+      // Call the AI API
+      const response = await fetch('/api/ai/jimmy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chatId,
+          userMessage,
+          userName,
+          recentMessages
         })
-        .select()
-        .single()
+      })
+      
+      const aiResponse = await response.json()
+      
+      if (!aiResponse.success) {
+        console.error('❌ AI API failed:', aiResponse.error)
+        // Use fallback response if provided
+        const fallbackContent = aiResponse.fallback || "Sorry, I'm having trouble responding right now. 🤖"
         
-      if (aiError) {
-        console.error('❌ Failed to send AI response:', aiError)
-        return
+        const { data: fallbackData, error: aiError } = await supabase
+          .from('messages')
+          .insert({
+            chat_id: chatId,
+            user_id: null,
+            content: fallbackContent,
+            message_type: 'ai',
+            is_ai: true
+          })
+          .select()
+          .single()
+          
+        if (aiError) {
+          console.error('❌ Failed to save fallback message:', aiError)
+          return
+        }
+        
+        // Use the fallback data for the rest of the function
+        aiData = fallbackData
+      } else {
+        // Use the successful AI response (already saved by the API)
+        aiData = aiResponse.message
       }
 
       console.log('✅ Jimmy response saved:', aiData.id)

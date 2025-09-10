@@ -13,13 +13,13 @@ export default function Home() {
         <div className="space-y-4">
           <Card className="bg-green-50 border-green-200">
             <CardContent className="p-4">
-              <h3 className="font-semibold text-green-800 mb-2">✅ Stage 3.0 Complete</h3>
+              <h3 className="font-semibold text-green-800 mb-2">✅ Stage 4.0 Complete</h3>
               <ul className="text-sm text-green-700 space-y-1">
+                <li>• Real AI Integration with Claude API ✅</li>
+                <li>• Smart context-aware responses ✅</li>
+                <li>• Fallback error handling ✅</li>
                 <li>• Industry-standard chat architecture ✅</li>
-                <li>• User choice - create or join chats ✅</li>
-                <li>• Invite system with access control ✅</li>
-                <li>• Multi-chat support with proper navigation ✅</li>
-                <li>• No forced chat participation ✅</li>
+                <li>• Multi-chat support with invite system ✅</li>
               </ul>
             </CardContent>
           </Card>
@@ -39,7 +39,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <div className="text-xs text-blue-700 mt-2 p-2 bg-blue-100 rounded">
-                  💡 <strong>New Architecture:</strong> Create/join your own chat rooms - no forced participation!
+                  🤖 <strong>AI-Powered:</strong> Chat with Jimmy, your intelligent AI assistant!
                 </div>
                 <Link href="/home" className="block">
                   <Button className="w-full" variant="ghost" size="sm">
@@ -52,7 +52,7 @@ export default function Home() {
 
           <div className="text-center">
             <p className="text-sm text-gray-500">
-              Ready for Stage 4 - Advanced Features & Mobile Optimization!
+              Ready for Stage 5 - Mobile Optimization & Advanced Features!
             </p>
           </div>
         </div>
