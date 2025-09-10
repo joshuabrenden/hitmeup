@@ -453,7 +453,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-lg font-medium text-gray-900 mb-2">No chats yet</h3>
                 <p className="text-gray-600 mb-4">
-                  You're not in any chat rooms yet. Create a new chat or join one with an invite code to get started!
+                  You&apos;re not in any chat rooms yet. Create a new chat or join one with an invite code to get started!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2 justify-center">
                   <Button

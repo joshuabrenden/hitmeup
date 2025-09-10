@@ -111,13 +111,14 @@ export function UserProvider({ children }: UserProviderProps) {
       console.log('✅ User profile fetched:', data)
       setUser(data)
     } catch (error) {
-      if (error.message === 'Profile fetch timeout') {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      if (errorMessage === 'Profile fetch timeout') {
         console.warn('⚠️ Profile fetch timeout (background refresh)')
       } else {
         console.error('❌ fetchUserProfile failed:', error)
       }
       // Don't clear user on timeout - might be background refresh
-      if (error.message !== 'Profile fetch timeout') {
+      if (errorMessage !== 'Profile fetch timeout') {
         setUser(null)
       }
     }

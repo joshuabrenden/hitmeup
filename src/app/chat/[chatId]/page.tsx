@@ -263,7 +263,7 @@ export default function ChatPage() {
           </div>
           <h2 className="text-xl font-semibold text-gray-900 mb-2">Access Denied</h2>
           <p className="text-gray-600 mb-6">
-            You don't have access to this chat room. You need to be invited to join.
+            You don&apos;t have access to this chat room. You need to be invited to join.
           </p>
           <div className="space-y-2">
             <Link href="/home" className="block">
