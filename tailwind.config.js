@@ -8,32 +8,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Neobrutalist color palette
-        brutal: {
-          black: '#000000',
-          white: '#FFFFFF',
-          yellow: '#FFFF00',
-          pink: '#FF00FF',
-          cyan: '#00FFFF',
-          lime: '#00FF00',
-          orange: '#FF8000',
-          red: '#FF0000',
-          blue: '#0080FF',
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        primary: {
+          50: '#eff6ff',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
         },
-      },
-      fontFamily: {
-        mono: ['Courier New', 'monospace'],
-        brutal: ['Arial Black', 'Helvetica', 'sans-serif'],
-      },
-      boxShadow: {
-        brutal: '4px 4px 0px 0px #000000',
-        'brutal-lg': '8px 8px 0px 0px #000000',
-        'brutal-xl': '12px 12px 0px 0px #000000',
-      },
-      borderWidth: {
-        3: '3px',
-        4: '4px',
-        5: '5px',
+        gray: {
+          50: '#f9fafb',
+          100: '#f3f4f6',
+          200: '#e5e7eb',
+          300: '#d1d5db',
+          400: '#9ca3af',
+          500: '#6b7280',
+          600: '#4b5563',
+          700: '#374151',
+          800: '#1f2937',
+          900: '#111827',
+        }
       },
     },
   },

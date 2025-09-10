@@ -1,71 +1,60 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
+import Link from 'next/link'
+import { Button, Card, CardContent } from '@/components/ui'
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-brutal-white p-8">
-      <div className="mx-auto max-w-4xl space-y-8">
-        <Card className="text-center">
-          <CardHeader>
-            <CardTitle className="text-6xl text-brutal-black">
-              HITMEUP
-            </CardTitle>
-            <p className="text-xl font-bold text-brutal-black">
-              INVITE-ONLY MESSAGING WITH AI ASSISTANT JIMMY
-            </p>
-          </CardHeader>
-        </Card>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="max-w-md w-full mx-4 p-8 bg-white rounded-lg shadow-lg">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">HitMeUp</h1>
+          <p className="text-gray-600">Mobile-friendly chat with AI assistant</p>
+        </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <Card>
-            <CardHeader>
-              <CardTitle>FEATURES</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Badge variant="success">NEW</Badge>
-                <span className="font-bold">Invite-Only Access</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="secondary">AI</Badge>
-                <span className="font-bold">Chat with @Jimmy</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="default">REAL-TIME</Badge>
-                <span className="font-bold">Live Messaging</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="warning">ADMIN</Badge>
-                <span className="font-bold">Analytics Dashboard</span>
-              </div>
+        <div className="space-y-4">
+          <Card className="bg-green-50 border-green-200">
+            <CardContent className="p-4">
+              <h3 className="font-semibold text-green-800 mb-2">✅ Stage 3.0 Complete</h3>
+              <ul className="text-sm text-green-700 space-y-1">
+                <li>• Industry-standard chat architecture ✅</li>
+                <li>• User choice - create or join chats ✅</li>
+                <li>• Invite system with access control ✅</li>
+                <li>• Multi-chat support with proper navigation ✅</li>
+                <li>• No forced chat participation ✅</li>
+              </ul>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>GET STARTED</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="font-bold">
-                You need an invitation link to join a conversation.
-              </p>
-              <p>
-                Once inside, you can chat with other users and mention @Jimmy for AI assistance powered by Claude 3.5 Haiku.
-              </p>
+          <Card className="bg-blue-50 border-blue-200">
+            <CardContent className="p-4">
+              <h3 className="font-semibold text-blue-800 mb-3">🚀 Start Chatting</h3>
               <div className="space-y-2">
-                <Button className="w-full" disabled>
-                  WAITING FOR INVITE
-                </Button>
-                <Link href="/login">
-                  <Button variant="outline" className="w-full">
-                    ADMIN LOGIN
+                <Link href="/signup" className="block">
+                  <Button className="w-full" variant="primary">
+                    🆕 Create Account
+                  </Button>
+                </Link>
+                <Link href="/login" className="block">
+                  <Button className="w-full" variant="secondary">
+                    🔑 Sign In
+                  </Button>
+                </Link>
+                <div className="text-xs text-blue-700 mt-2 p-2 bg-blue-100 rounded">
+                  💡 <strong>New Architecture:</strong> Create/join your own chat rooms - no forced participation!
+                </div>
+                <Link href="/home" className="block">
+                  <Button className="w-full" variant="ghost" size="sm">
+                    🏠 Chat Dashboard (Login Required)
                   </Button>
                 </Link>
               </div>
             </CardContent>
           </Card>
+
+          <div className="text-center">
+            <p className="text-sm text-gray-500">
+              Ready for Stage 4 - Advanced Features & Mobile Optimization!
+            </p>
+          </div>
         </div>
       </div>
     </div>
