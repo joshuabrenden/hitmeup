@@ -73,13 +73,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <PWAProvider />
-        <UserProvider>
-          <ChatProvider>
-            <main className="min-h-screen bg-background">
-              {children}
-            </main>
-          </ChatProvider>
-        </UserProvider>
+        <ThemeProvider>
+          <UserProvider>
+            <ChatProvider>
+              <main className="min-h-screen bg-background">
+                {children}
+              </main>
+            </ChatProvider>
+          </UserProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useUser } from '@/lib/contexts/UserContext'
 import { Button, Input, Card } from '@/components/ui'
+import ThemeToggle from '@/components/ThemeToggle'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -60,7 +61,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 px-4">
+      {/* Theme Toggle */}
+      <div className="fixed top-4 right-4 z-10">
+        <ThemeToggle />
+      </div>
+      
       <div className="max-w-md w-full">
         <Card>
           <div className="p-8">
@@ -138,12 +144,39 @@ export default function LoginPage() {
             </div>
 
             {/* Development helper */}
-            <div className="mt-6 p-4 bg-gray-50 rounded-md">
-              <h4 className="text-sm font-medium text-gray-900 mb-2">Test Credentials:</h4>
-              <div className="text-xs text-gray-600 space-y-1">
-                <p>Create a new account with any email/password</p>
-                <p>Or use existing test accounts if they exist in your database</p>
+            <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-md">
+              <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Test Credentials:</h4>
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="flex-1"
+                  disabled={isSubmitting || isLoading}
+                  onClick={() => {
+                    setFormData({ email: 'admin@test.com', password: 'password' })
+                    setError('')
+                  }}
+                >
+                  Admin User
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="flex-1"
+                  disabled={isSubmitting || isLoading}
+                  onClick={() => {
+                    setFormData({ email: 'test@test.com', password: 'password' })
+                    setError('')
+                  }}
+                >
+                  Test User
+                </Button>
               </div>
+              <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
+                Create a new account with any email/password or use existing test accounts if they exist in your database
+              </p>
             </div>
           </div>
         </Card>

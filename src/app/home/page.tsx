@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { Button, Card, CardContent } from '@/components/ui'
 import { useUser } from '@/lib/contexts/UserContext'
 import { createClient } from '@/lib/supabase/client'
+import ThemeToggle from '@/components/ThemeToggle'
 
 interface UserChat {
   id: string
@@ -297,6 +298,7 @@ export default function HomePage() {
             <p className="text-sm text-gray-600">Welcome back, {user.name}</p>
           </div>
           <div className="flex items-center space-x-2">
+            <ThemeToggle />
             <Button
               onClick={handleLogout}
               variant="ghost" 
