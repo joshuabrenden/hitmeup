@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="96" cy="96" r="96" fill="#3B82F6"/>
+  
+  <!-- Chat Bubble -->
+  <path d="M48 72C48 58.7452 58.7452 48 72 48H120C133.255 48 144 58.7452 144 72V108C144 121.255 133.255 132 120 132H84L60 148V132C52.268 132 48 127.732 48 120V72Z" fill="white"/>
+  
+  <!-- AI Indicator -->
+  <circle cx="120" cy="60" r="12" fill="#EF4444"/>
+  <path d="M116 56L120 60L124 56" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M120 64V60" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Message Lines -->
+  <rect x="60" y="72" width="48" height="4" rx="2" fill="#3B82F6" opacity="0.7"/>
+  <rect x="60" y="84" width="64" height="4" rx="2" fill="#3B82F6" opacity="0.5"/>
+  <rect x="60" y="96" width="40" height="4" rx="2" fill="#3B82F6" opacity="0.3"/>
+  
+  <!-- Robot Eyes (Jimmy) -->
+  <circle cx="84" cy="108" r="3" fill="#3B82F6"/>
+  <circle cx="100" cy="108" r="3" fill="#3B82F6"/>
+  
+  <!-- HitMeUp Text (Small) -->
+  <text x="96" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">HitMeUp</text>
+</svg>
